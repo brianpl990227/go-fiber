@@ -18,7 +18,8 @@ func main() {
 
 
 	userGroup := app.Group("/users")
-	userGroup.Post("", controllers.RegisterUserEndpoint )
+	userGroup.Post("", controllers.RegisterUserEndpoint)
+	userGroup.Get("", controllers.GetAllUsersEndpoint)
 
 	app.Listen(":3000")
 }

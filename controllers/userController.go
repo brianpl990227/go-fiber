@@ -29,6 +29,22 @@ func RegisterUserEndpoint(c *fiber.Ctx) error {
 
 }
 
+func GetAllUsersEndpoint(c *fiber.Ctx) error {
+	
+
+	users, errCase := userCases.GetAllUsersHandler()
+
+	if errCase != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(exception.ErrorResponse{
+			Status: fiber.StatusInternalServerError,
+			Message: errCase.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(users)
+
+}
+
 // func handleCreateUser(c *fiber.Ctx) error {
 // 	user := domain{}
 

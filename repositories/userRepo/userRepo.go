@@ -23,3 +23,14 @@ func Add(user *entity.User) (*entity.User, error){
 
 }
 
+func GetAll() (*entity.Users, error){
+	aux := rand.Intn(10)
+	
+	if aux % 2 == 0 {
+		return nil, errors.New("Error al conectar con la base de datos")
+	}
+
+	return &users, nil
+
+}
+
