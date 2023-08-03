@@ -48,7 +48,11 @@ func GetAllUsersEndpoint(c *fiber.Ctx) error {
 func GetOneUserEndpoint(c *fiber.Ctx) error {
 	
 	id := c.Params("id")
-
+	  /*
+	 	Si fuera un QueryString 
+	  	name := c.Query("name")
+	  	age := c.Query("age")
+	  */
 	users, errCase := userCases.GetOneUserHandler(id)
 
 	if errCase != nil {
