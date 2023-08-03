@@ -2,35 +2,61 @@ package userRepo
 
 import (
 	"errors"
-	"math/rand"
+
+	"github.com/brianpl990227/hello-fiber/db"
 	"github.com/brianpl990227/hello-fiber/domain/entity"
 )
 
 var users entity.Users
 
+func Add(user *entity.User) (*entity.User, error) {
 
-func Add(user *entity.User) (*entity.User, error){
-
-	aux := rand.Intn(10)
+	createdUser := db.Context.Create(user)
 	
-	if aux % 2 == 0 {
-		return nil, errors.New("Error al conectar con la base de datos")
+	err := createdUser.Error
+
+	if(err != nil){
+		return nil, errors.New(err.Error());
 	}
 
-	users = append(users, *user)
-	
+
 	return user, nil
 
 }
 
-func GetAll() (*entity.Users, error){
-	aux := rand.Intn(10)
+func GetAll() (*[]entity.User, error) {
+
+	var users []entity.User
+
+	//Para ordenar de mayor a menor, por defecto es de menor a mayor (sin del desc)
+	//Offset es el Skip y Limit es el Take
+	getAll := db.Context.Order("firstname desc").Offset(0).Limit(5).Find(&users)
 	
-	if aux % 2 == 0 {
-		return nil, errors.New("Error al conectar con la base de datos")
+	errAll := getAll.Error
+
+	if(errAll != nil){
+		return nil, errors.New(errAll.Error())
 	}
 
 	return &users, nil
 
 }
 
+func GetOne(id string) (*entity.User, error){
+	var user entity.User;
+
+	getOne := db.Context.Find(&user, "id = ?", id)
+
+	if getOne.Error != nil {
+		return nil, errors.New(getOne.Error.Error())
+	}
+
+	/*
+		Buscar un usuario con id == 10 y name == "Brian"
+		var user entity.User;
+		db.Where("id = ? AND name = ?", 10, "Brian").First(&user)
+	*/
+
+	return &user, nil
+
+}

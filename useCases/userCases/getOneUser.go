@@ -6,14 +6,14 @@ import (
 )
 
 
-func GetAllUsersHandler() (*[]entity.User, error){
+func GetOneUserHandler(id string) (*entity.User, error){
+	
+	user, err := userRepo.GetOne(id)
 
-	users, errRepo := userRepo.GetAll()
-
-	if errRepo != nil{
-		return nil, errRepo
+	if(err != nil){
+		return nil, err
 	}
 
-	return users, nil
+	return user, nil
 
 }
