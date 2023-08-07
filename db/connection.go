@@ -15,7 +15,6 @@ func DbConnection(){
 	var err error
 	
 	Context,err = gorm.Open(postgres.Open(connection), &gorm.Config{})
-
 	if err != nil {
 		log.Fatal(err)
 	} else {

@@ -53,28 +53,29 @@ func GetOneUserEndpoint(c *fiber.Ctx) error {
 	  	name := c.Query("name")
 	  	age := c.Query("age")
 	  */
-	users, errCase := userCases.GetOneUserHandler(id)
+	  users, errCase := userCases.GetOneUserHandler(id)
 
-	if errCase != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(exception.ErrorResponse{
-			Status: fiber.StatusInternalServerError,
-			Message: errCase.Error(),
-		})
-	}
-
-	return c.Status(fiber.StatusOK).JSON(users)
+	  if errCase != nil {
+		  return c.Status(fiber.StatusInternalServerError).JSON(exception.ErrorResponse{
+			  Status: fiber.StatusInternalServerError,
+			  Message: errCase.Error(),
+		  })
+	  }
+  
+	  return c.Status(fiber.StatusOK).JSON(users)
 
 }
 
-// func handleCreateUser(c *fiber.Ctx) error {
-// 	user := domain{}
+func DeleteUserHandler(c *fiber.Ctx) error {
 
-// 	err := c.BodyParser(&user)
+	id := c.Params("id")
 
-// 	if err != nil {
-// 		return err
-// 	}
-// 	user.Id = uuid.NewString()
-// 	users = append(users, user)
-// 	return c.Status(fiber.StatusOK).JSON(users)
-// }
+	user, errCase := userCases.DeleteUserHandler(id)
+
+	if errCase != nil {
+		return c.Status(errCase.Status).JSON(errCase)
+	}
+
+	return c.Status(fiber.StatusOK).JSON(user)
+
+}

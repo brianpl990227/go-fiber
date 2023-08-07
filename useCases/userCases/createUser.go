@@ -10,18 +10,18 @@ import (
 func CreateUserHandler(dto *dto.CreateUserDTO) (*entity.User, error) {
 
 	user := entity.User{
-	 	ID: uuid.NewString(),
 		Firstname: dto.Firstname,
-		Lastname: dto.Lastname,
-		Email: dto.Email,
+		Lastname:  dto.Lastname,
+		Email:     dto.Email,
+		ID:        uuid.NewString(),
 	}
-	
+
 	createdUser, errRepo := userRepo.Add(&user)
 
-	if errRepo != nil{
+	if errRepo != nil {
 		return nil, errRepo
 	}
-	
-	return createdUser, nil;
+
+	return createdUser, nil
 
 }

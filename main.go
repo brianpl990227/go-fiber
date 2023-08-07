@@ -26,6 +26,9 @@ func main() {
 	userGroup.Post("", controllers.RegisterUserEndpoint)
 	userGroup.Get("", controllers.GetAllUsersEndpoint)
 	userGroup.Get("/:id", controllers.GetOneUserEndpoint)
+	userGroup.Delete("/:id", controllers.DeleteUserHandler)
+	taskGroup := app.Group("/tasks")
+	taskGroup.Post("", controllers.AddTaskEndpoint)
 
 	app.Listen(":3000")
 }

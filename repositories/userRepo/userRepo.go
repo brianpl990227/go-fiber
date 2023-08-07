@@ -7,7 +7,7 @@ import (
 	"github.com/brianpl990227/hello-fiber/domain/entity"
 )
 
-var users entity.Users
+
 
 func Add(user *entity.User) (*entity.User, error) {
 
@@ -30,7 +30,7 @@ func GetAll() (*[]entity.User, error) {
 
 	//Para ordenar de mayor a menor, por defecto es de menor a mayor (sin del desc)
 	//Offset es el Skip y Limit es el Take
-	getAll := db.Context.Order("firstname desc").Offset(0).Limit(5).Find(&users)
+	getAll := db.Context.Preload("Tasks").Order("firstname desc").Offset(0).Limit(5).Find(&users)
 	
 	errAll := getAll.Error
 
@@ -56,7 +56,19 @@ func GetOne(id string) (*entity.User, error){
 		var user entity.User;
 		db.Where("id = ? AND name = ?", 10, "Brian").First(&user)
 	*/
-
 	return &user, nil
+}
+
+func Delete(user *entity.User) (*entity.User, error){
+
+	errDelete := db.Context.Where("id = ?", user.ID).Delete(user);
+	err := errDelete.Error
+	if err != nil{
+		return nil, errors.New(err.Error())
+	}
+
+	return user, nil;
+
+	
 
 }

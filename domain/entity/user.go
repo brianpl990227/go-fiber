@@ -4,11 +4,10 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	ID        string `gorm:"type:varchar;primary_key;"`
+	ID        string `gorm:"primary_key;" json:"id"`
 	Firstname string `json:"firstname" gorm:"not null;`
 	Lastname  string `json:"lastname" gorm:"not null;`
-	Email string `json:"email" gorm:"unique_index"`
-	Tasks     Tasks
+	Email     string `json:"email" gorm:"unique_index"`
+	Tasks     []Task 
 }
 
-type Users []User
