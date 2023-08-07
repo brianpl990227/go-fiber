@@ -66,6 +66,7 @@ func GetOneUserEndpoint(c *fiber.Ctx) error {
 
 }
 
+//Me gusto mas esta forma
 func DeleteUserHandler(c *fiber.Ctx) error {
 
 	id := c.Params("id")

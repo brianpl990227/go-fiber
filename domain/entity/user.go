@@ -8,6 +8,6 @@ type User struct {
 	Firstname string `json:"firstname" gorm:"not null;`
 	Lastname  string `json:"lastname" gorm:"not null;`
 	Email     string `json:"email" gorm:"unique_index"`
-	Tasks     []Task 
+	Tasks     []Task  `gorm:"foreignKey:UserID;constraint:OnDelete:CASCADE"`
 }
 

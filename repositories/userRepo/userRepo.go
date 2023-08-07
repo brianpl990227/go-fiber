@@ -61,7 +61,8 @@ func GetOne(id string) (*entity.User, error){
 
 func Delete(user *entity.User) (*entity.User, error){
 
-	errDelete := db.Context.Where("id = ?", user.ID).Delete(user);
+	//El Unscoped elimina el registro de la BD sin borrado suave cuando esta DeletedAt
+	errDelete := db.Context.Delete(user); 
 	err := errDelete.Error
 	if err != nil{
 		return nil, errors.New(err.Error())
